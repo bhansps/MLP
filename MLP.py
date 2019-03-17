@@ -1,20 +1,16 @@
 # coding=UTF-8
 import math
 import matplotlib.pyplot as plt
-import random
 
 class MLP:
-    __errorTest = []
-    __errorTrainig = []
-    __accuracyTest = []
-    __accuracyTraining = []
-
-    def __init__(self, dataset, testSize, randomSeed=None):
+    def __init__(self, dataset, testSize):
         s = int(math.floor(len(dataset)*testSize))
-        random.seed(randomSeed)
-        random.shuffle(dataset)
         self.__dataTest = dataset[:s]
-        self.__dataTraining = dataset
+        self.__dataTraining = dataset[s:]
+        self.__errorTest = []
+        self.__errorTrainig = []
+        self.__accuracyTest = []
+        self.__accuracyTraining = []
 
     def setTheta(self, thetaInput, thetaHidden):
         self.__thetaI = thetaInput # [[thetaToHiddenLayer1], [thetaToHiddenLayer2], [thetaToHiddenLayer3], [thetaToHiddenLayer4]]
@@ -47,14 +43,13 @@ class MLP:
         error = 0.0
         accuracy = 0.0
         for data in self.__dataTraining:
-            outH = [] # sigmoid net input
+            outH = []
             for i in range(len(self.__thetaI)):
                 outH.append(self.__sigmoid(sum(map(lambda x,y: x*y, data['input'], self.__thetaI[i])) + self.__biasI[i]))
-            outO = [] # sigmoid net hidden layer
+            outO = []
             for i in range(len(self.__thetaH)):
                 outO.append(self.__sigmoid(sum(map(lambda x,y: x*y, outH, self.__thetaH[i])) + self.__biasH[i]))
 
-            # update tetha & bias input
             for i in range(len(self.__thetaI)):
                 deltaError = 0.0
                 for k in range(len(outO)):
@@ -64,8 +59,7 @@ class MLP:
                     self.__thetaI[i][j] -= self.__alpha * float(delta)
                 delta = deltaError * outH[i]*(1-outH[i])
                 self.__biasI[i] -= self.__alpha * float(delta)
-            
-            # update tetha & bias hidden layer
+
             for i in range(len(self.__thetaH)):
                 for j in range(len(self.__thetaH[i])):
                     delta = (outO[i]-data['target'][i]) * outO[i]*(1-outO[i]) * outH[j]
@@ -84,10 +78,10 @@ class MLP:
         error = 0.0
         accuracy = 0.0
         for data in self.__dataTest:
-            outH = [] # sigmoid net input
+            outH = []
             for i in range(len(self.__thetaI)):
                 outH.append(self.__sigmoid(sum(map(lambda x,y: x*y, data['input'], self.__thetaI[i])) + self.__biasI[i]))
-            outO = [] # sigmoid net hidden layer
+            outO = []
             for i in range(len(self.__thetaH)):
                 outO.append(self.__sigmoid(sum(map(lambda x,y: x*y, outH, self.__thetaH[i])) + self.__biasH[i]))
 
