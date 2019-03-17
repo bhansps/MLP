@@ -43,13 +43,14 @@ class MLP:
         error = 0.0
         accuracy = 0.0
         for data in self.__dataTraining:
-            outH = []
+            outH = [] # sigmoid net input
             for i in range(len(self.__thetaI)):
                 outH.append(self.__sigmoid(sum(map(lambda x,y: x*y, data['input'], self.__thetaI[i])) + self.__biasI[i]))
-            outO = []
+            outO = [] # sigmoid net hidden layer
             for i in range(len(self.__thetaH)):
                 outO.append(self.__sigmoid(sum(map(lambda x,y: x*y, outH, self.__thetaH[i])) + self.__biasH[i]))
 
+             # update tetha & bias input
             for i in range(len(self.__thetaI)):
                 deltaError = 0.0
                 for k in range(len(outO)):
@@ -60,6 +61,7 @@ class MLP:
                 delta = deltaError * outH[i]*(1-outH[i])
                 self.__biasI[i] -= self.__alpha * float(delta)
 
+            # update tetha & bias hidden layer
             for i in range(len(self.__thetaH)):
                 for j in range(len(self.__thetaH[i])):
                     delta = (outO[i]-data['target'][i]) * outO[i]*(1-outO[i]) * outH[j]
@@ -78,10 +80,10 @@ class MLP:
         error = 0.0
         accuracy = 0.0
         for data in self.__dataTest:
-            outH = []
+            outH = [] # sigmoid net input
             for i in range(len(self.__thetaI)):
                 outH.append(self.__sigmoid(sum(map(lambda x,y: x*y, data['input'], self.__thetaI[i])) + self.__biasI[i]))
-            outO = []
+            outO = [] # sigmoid net hidden layer
             for i in range(len(self.__thetaH)):
                 outO.append(self.__sigmoid(sum(map(lambda x,y: x*y, outH, self.__thetaH[i])) + self.__biasH[i]))
 
