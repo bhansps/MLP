@@ -43,3 +43,20 @@ if __name__=='__main__':
         ML.train()
         ML.test()
     ML.showPlot()
+    
+    thetaInput = [[0.3, 0.7, 0.1, 0.85], [0.6, 0.3, 0.75, 0.5], [0.2, 0.85, 0.3, 0.7], [0.55, 0.4, 0.65, 0.2]]
+    thetaHidden = [[0.4, 0.7, 0.2, 0.65], [0.75, 0.35, 0.6, 0.4]]
+    ML.setTheta(thetaInput, thetaHidden)
+
+    biasInput = [0.6, 0.4, 0.7, 0.35]
+    biasHidden = [0.5, 0.5]
+    ML.setBias(biasInput, biasHidden)
+
+    epoch = 300
+    alpha = 0.8
+    ML.setAlpha(alpha)
+
+    for _ in range(epoch):
+        ML.train()
+        ML.test()
+    ML.showPlot()
