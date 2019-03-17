@@ -32,6 +32,7 @@ if __name__=='__main__':
     # thetaInput = [[0.5]*4]*4
     # thetaHidden = [[0.5]*4]*2
     ML_1.setTheta(thetaInput, thetaHidden)
+    ML_2.setTheta(thetaInput, thetaHidden)
 
 
     biasInput = [0.6, 0.4, 0.7, 0.35]
@@ -39,26 +40,18 @@ if __name__=='__main__':
     # biasInput = [0.5]*4
     # biasHidden = [0.5]*2
     ML_1.setBias(biasInput, biasHidden)
+    ML_2.setBias(biasInput, biasHidden)
 
-    epoch = 500
     ML_1.setAlpha(0.1)
+    ML_2.setAlpha(0.8)
 
+    epoch = 400
     for _ in range(epoch):
         ML_1.train()
         ML_1.test()
     ML_1.showPlot()
 
-    thetaInput = [[0.3, 0.7, 0.1, 0.85], [0.6, 0.3, 0.75, 0.5], [0.2, 0.85, 0.3, 0.7], [0.55, 0.4, 0.65, 0.2]]
-    thetaHidden = [[0.4, 0.7, 0.2, 0.65], [0.75, 0.35, 0.6, 0.4]]
-    ML_2.setTheta(thetaInput, thetaHidden)
-
-    biasInput = [0.6, 0.4, 0.7, 0.35]
-    biasHidden = [0.5, 0.5]
-    ML_2.setBias(biasInput, biasHidden)
-
-    ML_2.setAlpha(0.8)
-    
-    epoch = 500
+    epoch = 64
     for _ in range(epoch):
         ML_2.train()
         ML_2.test()

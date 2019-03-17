@@ -1,6 +1,7 @@
 # coding=UTF-8
 import math
 import matplotlib.pyplot as plt
+import copy
 
 class MLP:
     def __init__(self, dataset, testSize):
@@ -13,12 +14,12 @@ class MLP:
         self.__accuracyTraining = []
 
     def setTheta(self, thetaInput, thetaHidden):
-        self.__thetaI = thetaInput # [[thetaToHiddenLayer1], [thetaToHiddenLayer2], [thetaToHiddenLayer3], [thetaToHiddenLayer4]]
-        self.__thetaH = thetaHidden # [[thetaToOutput1], [thetaToOutput2]]
+        self.__thetaI = copy.deepcopy(thetaInput) # [[thetaToHiddenLayer1], [thetaToHiddenLayer2], [thetaToHiddenLayer3], [thetaToHiddenLayer4]]
+        self.__thetaH = copy.deepcopy(thetaHidden) # [[thetaToOutput1], [thetaToOutput2]]
 
     def setBias(self, biasInput, biasHidden):
-        self.__biasI = biasInput # [biasHiddenLayer1, biasHiddenLayer2, biasHiddenLayer3, biasHiddenLayer4]
-        self.__biasH = biasHidden # [biasOutput1, biasOutput2]
+        self.__biasI = copy.deepcopy(biasInput) # [biasHiddenLayer1, biasHiddenLayer2, biasHiddenLayer3, biasHiddenLayer4]
+        self.__biasH = copy.deepcopy(biasHidden) # [biasOutput1, biasOutput2]
 
     def setAlpha(self, alpha):
         self.__alpha = alpha
