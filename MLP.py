@@ -56,7 +56,7 @@ class MLP:
                 deltaError = 0.0
                 for k in range(len(outO)):
                     deltaError += (outO[k]-data['target'][k]) * outO[k]*(1-outO[k]) * self.__thetaH[k][i]
-                for j in range(len(self.__thetaI)):
+                for j in range(len(self.__thetaI[i])):
                     delta = deltaError * outH[i]*(1-outH[i]) * data['input'][j]
                     self.__thetaI[i][j] -= self.__alpha * float(delta)
                 delta = deltaError * outH[i]*(1-outH[i])
